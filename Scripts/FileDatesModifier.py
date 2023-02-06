@@ -14,6 +14,7 @@ from datetime import datetime, timedelta
 #Manual Config#
 path = None # Format like r'RAW PATH HERE'
 Mode = 0 #0 = Unset, 1 = All, 2 = Future
+Verbose = None #0 = Unset, 1 = Yes, 2 = No
 Resolve = None #0 = Unset, 1 = Yes, 2 = No
 
 def clear_screen():
@@ -135,7 +136,7 @@ if __name__ == '__main__':
     if Mode == 0:
         prompt_mode()
 
-    if Resolve == 0:
+    if Resolve == None:
         prompt_resolve()
     
     if Resolve == True:
