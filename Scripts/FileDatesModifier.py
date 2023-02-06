@@ -14,10 +14,19 @@ from datetime import datetime, timedelta
 #Manual Config#
 path = None # Format like r'RAW PATH HERE'
 Mode = 0 #0 = Unset, 1 = All, 2 = Future
-Resolve = 0 #0 = Unset, 1 = Yes, 2 = No
+Resolve = None #0 = Unset, 1 = Yes, 2 = No
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
+
+def get_bool(value):
+    value = value.lower()
+    if value in ['yes', 'true', '1']:
+        return True
+    elif value in ['no', 'false', '0']:
+        return False
+    else:
+        return None
 
 def prompt_path():
     clear_screen()
@@ -50,8 +59,8 @@ def prompt_resolve():
     global Resolve
     clear_screen()
     print('1 = Yes, 2 = No')
-    Resolve = int(input('Enter Resolve: '))
-    if Resolve != 1 and Resolve != 2:
+    Resolve = get_bool(input('Enter Resolve: '))
+    if Resolve != True and Resolve != False:
         clear_screen()
         input('Invalid Resolve. Press Enter to continue.')
         prompt_resolve()
@@ -129,10 +138,10 @@ if __name__ == '__main__':
     if Resolve == 0:
         prompt_resolve()
     
-    if Resolve == 1:
+    if Resolve == True:
         resolve_file_creation_dates(get_file_creation_dates(path))
         resolve_file_mod_dates(get_file_mod_dates(path))
-    elif Resolve == 2:
+    elif Resolve == False:
         print_file_mod_dates(get_file_creation_dates(path))
         print_file_mod_dates(get_file_mod_dates(path))
 
