@@ -128,6 +128,19 @@ def resolve_file_creation_dates(dates):
             print(f"{file_path} - {date}")
             os.utime(file_path, (datetime.now().timestamp(), os.path.getmtime(file_path)))
 
+def bak_files(path):
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            file_path = os.path.join(root, file)
+            os.rename(file_path, file_path + '.bak')
+
+def un_bak_files(path):
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            file_path = os.path.join(root, file)
+            if file_path.endswith('.bak'):
+                os.rename(file_path, file_path[:-4])
+
 if __name__ == '__main__':
 
     if path is None:
@@ -145,5 +158,18 @@ if __name__ == '__main__':
     elif Resolve == False:
         print_file_mod_dates(get_file_creation_dates(path))
         print_file_mod_dates(get_file_mod_dates(path))
+
+    Resolved = get_bool(input("Resolved? (yes/No): "))
+
+    if Resolved == True:
+        print("Awesome, if you have any script suggestsions, please let me know!")
+    else:
+        bak_files(path)
+        input("Please Refresh Library in Plex (Actions > Scan Library Files | Press Enter when complete!")
+        input("Please Empty Trash in Plex (Actions > Manage Library > Empty Trash | Press Enter when complete!")
+        un_bak_files(path)
+        input("Please Refresh Library in Plex (Actions > Scan Library Files | Press Enter when complete!")
+        print("If your issue is not resolved, please let me know!")
+
 
     print("Done!")
