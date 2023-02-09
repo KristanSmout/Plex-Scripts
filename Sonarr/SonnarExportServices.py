@@ -1,5 +1,10 @@
 import os, requests, dotenv, datetime, csv
 
+"""
+This script will export the streaming services for all series in Sonarr. This is done through the TVDB API
+This can be configured through a .env file or manually through the script.
+"""
+
 #Manual Config#
 save = None
 output = None
@@ -110,8 +115,6 @@ def verbose_worker():
     except Exception as e:
         print(e)
 
-
-
 def prompt_save_path():
     global output
     clear_screen()
@@ -127,27 +130,6 @@ def prompt_save_path():
         file_name = f"SonarrServiceExport-{date_time}.csv"
         return os.path.join(output, file_name)
     
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
     dotenv.load_dotenv()
     clear_screen()
