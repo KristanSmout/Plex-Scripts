@@ -1,6 +1,9 @@
 """
 This script will create a historical graph/CSV of the storage usage of your media library. This will be rounded to a daily basis.
 You can configure the script below or prompts will be given to you when you run the script.
+
+This will not be 100% accurate as it will only be able to get the size of the files that are currently in the library. If you have deleted files, they will not be included in the graph.
+This also uses the modification date of the file, if these are not accurate, the graph will not be accurate.
 """
 
 import os,datetime,csv,pandas as pd,matplotlib.pyplot as plt
